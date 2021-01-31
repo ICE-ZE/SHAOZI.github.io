@@ -2,13 +2,44 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://shaozi5.github.io</id>
     <title>潘泽彬的博客</title>
-    <updated>2021-01-31T07:18:38.765Z</updated>
+    <updated>2021-01-31T09:20:19.288Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://shaozi5.github.io"/>
     <link rel="self" href="https://shaozi5.github.io/atom.xml"/>
     <logo>https://shaozi5.github.io/images/avatar.png</logo>
     <icon>https://shaozi5.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 潘泽彬的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[力扣第445题-分发饼干]]></title>
+        <id>https://shaozi5.github.io/post/li-kou/</id>
+        <link href="https://shaozi5.github.io/post/li-kou/">
+        </link>
+        <updated>2021-01-31T08:47:17.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="贪心算法">贪心算法</h2>
+<p>题目给出了每个孩子的胃口值和每个饼干能提供的胃口值，当饼干提供的胃口值大于孩子的胃口值时就能喂饱这个孩子，一个孩子只能吃一块饼干，题目要求给出能够喂饱的孩子数。<br>
+这道题使用贪心算法进行解决，将给定的两个数组进行排序，如果最小的饼干喂不饱当前胃口值最小的孩子，那么就不可能喂饱接下来的孩子们，所以跳过这块饼干。当找到一张能喂饱这个孩子的饼干就可以跳到这个孩子。循环一次孩子和饼干，当孩子喂完了或者没有饼干了，就可以得出可以喂饱的孩子数了。C++实现代码。</p>
+<pre><code class="language-C++">class Solution {
+public:
+    int findContentChildren(vector&lt;int&gt;&amp; g, vector&lt;int&gt;&amp; s) {
+        sort(g.begin(),g.end());    //孩子胃口值排序
+        sort(s.begin(),s.end());    //饼干大小排序
+        int child = 0,biscuit = 0;  //当前遍历到的孩子数和饼干数
+        int ans = 0;                //喂饱的孩子数
+        while (child &lt; g.size() &amp;&amp; biscuit &lt; s.size()){
+            if (g[child] &lt;= s[biscuit]){    //如果当前饼干可以喂饱孩子
+                ans++;                      //孩子数加一
+                child++;                    //跳过这个孩子
+                biscuit++;                  //跳过这块饼干
+            } else{                         //如果当前饼干不可以喂饱孩子
+                biscuit++;                  //跳过这块饼干
+            }
+        }
+        return ans;
+    }
+};
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[力扣第839题-相似字符串组]]></title>
         <id>https://shaozi5.github.io/post/li-kou-di-839-ti-xiang-si-zi-fu-chuan-zu/</id>
