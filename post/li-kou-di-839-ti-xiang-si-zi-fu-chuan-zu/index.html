@@ -1,10 +1,11 @@
 
+<!DOCTYPE html>
 <html>
   <head>
     
 <meta charset="utf-8" >
 
-<title>潘泽彬的博客</title>
+<title>力扣第839题-相似字符串组 | 潘泽彬的博客</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -77,65 +78,84 @@
 
 
       <div class="content-container">
-        
-        
-<section class="post-item">
-    <div class="content">
-      <a href="https://shaozi5.github.io/post/li-kou-di-839-ti-xiang-si-zi-fu-chuan-zu/">
-        <h2 class="post-title">力扣第839题-相似字符串组</h2>
-      </a>
-      <div class="post-abstract">
-        
-      </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2021-01-31</span>
-        
-      </div>
-    </div>
-    
-  </section>
-
-<section class="post-item">
-    <div class="content">
-      <a href="https://shaozi5.github.io/post/hello-gridea/">
-        <h2 class="post-title">Hello Gridea</h2>
-      </a>
-      <div class="post-abstract">
-        <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-
-      </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2018-12-12</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
+        <div class="post-detail">
+          
+          <h2 class="post-title">力扣第839题-相似字符串组</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2021-01-31</span>
             
-              <a href="https://shaozi5.github.io/tag/71dilJZ4b/">
-                Gridea
-                
-              </a>
-            
-          </span>
-        
-      </div>
-    </div>
-    
-      <a href="https://shaozi5.github.io/post/hello-gridea/">
-        <div class="feature-container" style="background-image: url('https://shaozi5.github.io/post-images/hello-gridea.png')">
+          </div>
+          <div class="post-content">
+            <h1 id="方法一">方法一：</h1>
+<h2 id="并查集">并查集</h2>
+<pre><code class="language-C++"> class Solution {
+public:
+    vector&lt;int&gt; bcj;
+    int find(int x){
+        if (bcj[x] == x){
+            return x;
+        } else{
+            return bcj[x] = find(bcj[x]);
+        }
+    }
+    static bool check(const string&amp; sa, const string&amp; sb, int m){
+        int num = 0;
+        for (int i = 0; i &lt; m; ++i) {
+            if (sa[i] != sb[i]){
+                num++;
+            }
+            if (num &gt; 2){
+                return false;
+            }
+        }
+        return true;
+    }
+    int numSimilarGroups(vector&lt;string&gt;&amp; strs) {
+        int n = strs.size();
+        int m = strs[0].size();
+        bcj.resize(n);
+        for (int i = 0; i &lt; n; ++i) {
+            bcj[i] = i;
+        }
+        for (int i = 0; i &lt; n; ++i) {
+            for (int j = i+1; j &lt; n; ++j) {
+                int fi = find(i);
+                int fj = find(j);
+                if(fi == fj){
+                    continue;
+                }
+                if (check(strs[i],strs[j],m)){
+                    bcj[fi] = fj;
+                }
+            }
+        }
+        int ans = 0;
+        for (int i = 0; i &lt; n; ++i) {
+            if (bcj[i] == i){
+                ans++;
+            }
+        }
+        return ans;
+    }
+};
+</code></pre>
+<h2 id=""></h2>
+
+          </div>
         </div>
-      </a>
-    
-  </section>
 
-
-<div class="pagination-container">
-  
-  
-</div>
-
-
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://shaozi5.github.io/post/hello-gridea/">
+              <h3 class="post-title">
+                下一篇：Hello Gridea
+              </h3>
+            </a>
+          </div>
+          
       </div>
+
+      
 
       <div class="site-footer">
   <div class="slogan"></div>

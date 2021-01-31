@@ -2,13 +2,75 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://shaozi5.github.io</id>
     <title>潘泽彬的博客</title>
-    <updated>2021-01-30T13:28:25.084Z</updated>
+    <updated>2021-01-31T07:18:38.765Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://shaozi5.github.io"/>
     <link rel="self" href="https://shaozi5.github.io/atom.xml"/>
     <logo>https://shaozi5.github.io/images/avatar.png</logo>
     <icon>https://shaozi5.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 潘泽彬的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[力扣第839题-相似字符串组]]></title>
+        <id>https://shaozi5.github.io/post/li-kou-di-839-ti-xiang-si-zi-fu-chuan-zu/</id>
+        <link href="https://shaozi5.github.io/post/li-kou-di-839-ti-xiang-si-zi-fu-chuan-zu/">
+        </link>
+        <updated>2021-01-30T16:59:02.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="方法一">方法一：</h1>
+<h2 id="并查集">并查集</h2>
+<pre><code class="language-C++"> class Solution {
+public:
+    vector&lt;int&gt; bcj;
+    int find(int x){
+        if (bcj[x] == x){
+            return x;
+        } else{
+            return bcj[x] = find(bcj[x]);
+        }
+    }
+    static bool check(const string&amp; sa, const string&amp; sb, int m){
+        int num = 0;
+        for (int i = 0; i &lt; m; ++i) {
+            if (sa[i] != sb[i]){
+                num++;
+            }
+            if (num &gt; 2){
+                return false;
+            }
+        }
+        return true;
+    }
+    int numSimilarGroups(vector&lt;string&gt;&amp; strs) {
+        int n = strs.size();
+        int m = strs[0].size();
+        bcj.resize(n);
+        for (int i = 0; i &lt; n; ++i) {
+            bcj[i] = i;
+        }
+        for (int i = 0; i &lt; n; ++i) {
+            for (int j = i+1; j &lt; n; ++j) {
+                int fi = find(i);
+                int fj = find(j);
+                if(fi == fj){
+                    continue;
+                }
+                if (check(strs[i],strs[j],m)){
+                    bcj[fi] = fj;
+                }
+            }
+        }
+        int ans = 0;
+        for (int i = 0; i &lt; n; ++i) {
+            if (bcj[i] == i){
+                ans++;
+            }
+        }
+        return ans;
+    }
+};
+</code></pre>
+<h2 id=""></h2>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://shaozi5.github.io/post/hello-gridea/</id>
